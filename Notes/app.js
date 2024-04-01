@@ -2,16 +2,7 @@ const createBtn = document.getElementById("create");
 const noteTitle = document.getElementById("title");
 const listElement = document.getElementById("list");
 
-const notes = [
-  {
-    title: "Название",
-    completed: true,
-  },
-  {
-    title: "Название2",
-    completed: false,
-  },
-];
+const notes = [];
 
 render();
 
