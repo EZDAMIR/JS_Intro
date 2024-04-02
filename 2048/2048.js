@@ -3,6 +3,15 @@ var score;
 var rows = 4;
 var columns = 4;
 
+function changeColorToYellow(id) {
+  var arrow = document.getElementById(id);
+  arrow.style.backgroundColor = "yellow";
+}
+function changeColorToOriginal(id) {
+  var arrow = document.getElementById(id);
+  arrow.style.backgroundColor = "";
+}
+
 window.onload = function () {
   setGame();
   score = 0;
@@ -102,7 +111,7 @@ function setTwo() {
 
 function updateTile(tile, num) {
   tile.innerText = "";
-  tile.classList.value = ""; //clear the  classList
+  tile.classList.value = "";
   tile.classList.add("tile");
   if (num > 0) {
     tile.innerText = num;
@@ -114,29 +123,67 @@ function updateTile(tile, num) {
   }
 }
 
-document.addEventListener("keyup", (e) => {
-  if (e.code == "ArrowLeft") {
-    slideLeft();
-  } else if (e.code == "ArrowRight") {
-    slideRight();
-  } else if (e.code == "ArrowUp") {
-    slideUp();
-  } else if (e.code == "ArrowDown") {
-    slideDown();
+document.addEventListener("keydown", handleKeyPress);
+
+function handleKeyPress(e) {
+  if (
+    ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+      e.code
+    ) > -1
+  ) {
+    e.preventDefault();
   }
+  let direction = "";
+  switch (e.code) {
+    case "ArrowLeft":
+      direction = "left";
+      break;
+    case "ArrowRight":
+      direction = "right";
+      break;
+    case "ArrowUp":
+      direction = "up";
+      break;
+    case "ArrowDown":
+      direction = "down";
+      break;
+    default:
+      return;
+  }
+
+  changeColorToYellow("arrow-" + direction);
+  move(direction);
+
+  setTimeout(() => changeColorToOriginal("arrow-" + direction), 300);
+
   document.getElementById("score").innerText = score;
-});
+}
+
+function move(direction) {
+  switch (direction) {
+    case "left":
+      slideLeft();
+      break;
+    case "right":
+      slideRight();
+      break;
+    case "up":
+      slideUp();
+      break;
+    case "down":
+      slideDown();
+      break;
+  }
+}
 
 function filterZero(row) {
-  return row.filter((num) => num != 0); //create a new array without zeroes
+  return row.filter((num) => num != 0);
 }
 
 function slide(row) {
   row = filterZero(row);
 
-  //slide
   for (let i = 0; i < row.length - 1; i++) {
-    //chech every 2
     if (row[i] == row[i + 1]) {
       row[i] *= 2;
       row[i + 1] = 0;
@@ -146,7 +193,6 @@ function slide(row) {
 
   row = filterZero(row);
 
-  //add zeroes
   while (row.length < rows) {
     row.push(0);
   }
@@ -165,7 +211,7 @@ function slideLeft() {
       updateTile(tile, num);
     }
   }
-  setTwo();
+  setTimeout(setTwo(), 500);
 }
 function slideRight() {
   for (let r = 0; r < rows; r++) {
@@ -181,7 +227,7 @@ function slideRight() {
       updateTile(tile, num);
     }
   }
-  setTwo();
+  setTimeout(setTwo(), 500);
 }
 
 function slideUp() {
@@ -198,7 +244,7 @@ function slideUp() {
       updateTile(tile, num);
     }
   }
-  setTwo();
+  setTimeout(setTwo(), 500);
 }
 function slideDown() {
   for (let c = 0; c < columns; c++) {
@@ -216,5 +262,5 @@ function slideDown() {
       updateTile(tile, num);
     }
   }
-  setTwo();
+  setTimeout(setTwo(), 500);
 }
