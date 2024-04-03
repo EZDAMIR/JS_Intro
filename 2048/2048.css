@@ -19,6 +19,22 @@ hr {
   flex-wrap: wrap;
 }
 
+@keyframes increaseScore {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#score-animated {
+  font-size: 24px;
+  animation: increaseScore 0.5s ease-out;
+}
+
 .container-arrows {
   display: flex;
   justify-content: center;
@@ -63,8 +79,6 @@ hr {
   transform: scale(1.15);
   transition: transform 0.5s ease;
 }
-
-/* CSS */
 .button-80 {
   background: #fff;
   backface-visibility: hidden;

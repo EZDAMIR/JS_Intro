@@ -123,6 +123,30 @@ function updateTile(tile, num) {
   }
 }
 
+document.getElementById("arrow-left").addEventListener("click", () => {
+  changeColorToYellow("arrow-left");
+  slideLeft();
+  changeColorToOriginal("arrow-left");
+});
+
+document.getElementById("arrow-right").addEventListener("click", () => {
+  changeColorToYellow("arrow-right");
+  slideRight();
+  changeColorToOriginal("arrow-right");
+});
+
+document.getElementById("arrow-up").addEventListener("click", () => {
+  changeColorToYellow("arrow-up");
+  slideUp();
+  changeColorToOriginal("arrow-up");
+});
+
+document.getElementById("arrow-down").addEventListener("click", () => {
+  changeColorToYellow("arrow-down");
+  slideDown();
+  changeColorToOriginal("arrow-down");
+});
+
 document.addEventListener("keydown", handleKeyPress);
 
 function handleKeyPress(e) {
@@ -157,6 +181,12 @@ function handleKeyPress(e) {
   setTimeout(() => changeColorToOriginal("arrow-" + direction), 300);
 
   document.getElementById("score").innerText = score;
+
+  document.getElementById("score").classList.add("score-animated");
+
+  setTimeout(() => {
+    document.getElementById("score").classList.remove("score-animated");
+  }, 500);
 }
 
 function move(direction) {
