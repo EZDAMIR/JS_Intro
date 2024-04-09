@@ -8,8 +8,8 @@ hr {
 }
 
 #board {
-  width: 396px;
-  height: 396px;
+  width: 399px;
+  height: 399px;
 
   background-color: #cdc1b5;
   border: 5px solid #bbada0;
@@ -160,9 +160,14 @@ hr {
   transform: scale(1.1);
 }
 
-.arrow-key {
+.sizeable {
   width: 60px;
   height: 60px;
+}
+
+.arrow-key {
+  width: 70px;
+  height: 70px;
   border: 5px solid #ccc;
   margin: 1px;
   text-align: center;
