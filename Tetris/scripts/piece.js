@@ -37,4 +37,12 @@ class Piece {
   randomizeTetrominoType(noOfTypes) {
     return Math.floor(Math.random() * noOfTypes);
   }
+
+  move(p){
+    this.x = p.x;
+    this.y = p.y;
+
+    this.shape = p.shape;
+  }
+
 }
