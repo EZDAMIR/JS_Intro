@@ -1,0 +1,29 @@
+@page "/attendance"
+@inject SessionState Session
+
+<PageTitle>Attendance</PageTitle>
+<h1>Attendance Tracker</h1>
+
+@if (!Session.IsLoggedIn)
+{
+    <p>Please complete the registration form first.</p>
+}
+else if (Session.RegisteredEventIds.Count == 0)
+{
+    <p>No registered events were found for this session.</p>
+}
+else
+{
+    <p>Session user: <strong>@Session.UserName</strong></p>
+    @foreach (var eventId in Session.RegisteredEventIds.OrderBy(id => id))
+    {
+        var attended = Session.AttendedEventIds.Contains(eventId);
+        <div class="attendance-row">
+            <span>Event @eventId</span>
+            <button @onclick="() => Session.ToggleAttendance(eventId)">
+                @(attended ? "Mark absent" : "Mark attended")
+            </button>
+            <strong>@(attended ? "Attended" : "Not attended")</strong>
+        </div>
+    }
+}
