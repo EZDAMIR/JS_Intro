@@ -1,0 +1,21 @@
+@page "/"
+
+<PageTitle>EventEase</PageTitle>
+<h1>Upcoming Events</h1>
+<p>Browse events, register, and track attendance from one place.</p>
+
+<div class="event-grid">
+    @foreach (var item in Events)
+    {
+        <EventCard Event="item" />
+    }
+</div>
+
+@code {
+    private readonly List<EventItem> Events = new()
+    {
+        new() { Id = 1, Title = "Developer Meetup", Date = DateTime.Today.AddDays(7), Location = "Innovation Hub", Description = "A community meetup for software developers." },
+        new() { Id = 2, Title = "Cloud Workshop", Date = DateTime.Today.AddDays(14), Location = "Tech Center", Description = "Hands-on sessions covering modern cloud development." },
+        new() { Id = 3, Title = "Frontend Conference", Date = DateTime.Today.AddDays(21), Location = "City Conference Hall", Description = "Talks and demos focused on modern frontend engineering." }
+    };
+}
