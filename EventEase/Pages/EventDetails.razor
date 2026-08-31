@@ -1,0 +1,50 @@
+@page "/event/{Id:int}"
+@inject SessionState Session
+
+<PageTitle>Event Details</PageTitle>
+
+@if (Event is null)
+{
+    <h1>Event not found</h1>
+    <p>The event ID is invalid.</p>
+}
+else
+{
+    <h1>@Event.Title</h1>
+    <p><strong>Date:</strong> @Event.Date.ToString("MMMM d, yyyy")</p>
+    <p><strong>Location:</strong> @Event.Location</p>
+    <p>@Event.Description</p>
+
+    @if (Session.RegisteredEventIds.Contains(Event.Id))
+    {
+        <p class="success">You are registered for this event.</p>
+    }
+    else
+    {
+        <button @onclick="Register">Register for this event</button>
+    }
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private EventItem? Event;
+
+    protected override void OnParametersSet()
+    {
+        Event = Id switch
+        {
+            1 => new EventItem { Id = 1, Title = "Developer Meetup", Date = DateTime.Today.AddDays(7), Location = "Innovation Hub", Description = "A community meetup for software developers." },
+            2 => new EventItem { Id = 2, Title = "Cloud Workshop", Date = DateTime.Today.AddDays(14), Location = "Tech Center", Description = "Hands-on sessions covering modern cloud development." },
+            3 => new EventItem { Id = 3, Title = "Frontend Conference", Date = DateTime.Today.AddDays(21), Location = "City Conference Hall", Description = "Talks and demos focused on modern frontend engineering." },
+            _ => null
+        };
+    }
+
+    private void Register()
+    {
+        if (Event is not null)
+        {
+            Session.Register(Event.Id);
+        }
+    }
+}
