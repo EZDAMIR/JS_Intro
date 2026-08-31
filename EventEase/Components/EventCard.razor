@@ -1,0 +1,16 @@
+<article class="event-card">
+    <h2>@Event.Title</h2>
+    <p><strong>Date:</strong> @Event.Date.ToString("MMM d, yyyy")</p>
+    <p><strong>Location:</strong> @Event.Location</p>
+    <p>@Event.Description</p>
+    <label>
+        Notes
+        <input @bind="Notes" placeholder="Add a note" />
+    </label>
+    <a class="button" href="@($"/event/{Event.Id}")">View details</a>
+</article>
+
+@code {
+    [Parameter, EditorRequired] public EventItem Event { get; set; } = default!;
+    private string Notes { get; set; } = "";
+}
